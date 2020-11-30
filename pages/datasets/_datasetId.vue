@@ -158,6 +158,13 @@
           :dataset-version="getDatasetVersion"
           :dataset-id="getDatasetId"
         />
+        <div class="plotvuer-container">
+          <plot-vuer
+            v-show="activeTab === 'plot'"
+            :url="plotUrl" 
+            :plotType="plotData[0].plot_type"
+            :helpMode="false" style="height: 200px"/>
+        </div>
       </detail-tabs>
     </div>
     <download-dataset
@@ -188,6 +195,8 @@ import Request from '@/mixins/request'
 import DateUtils from '@/mixins/format-date'
 import FormatStorage from '@/mixins/bf-storage-metrics'
 import { getLicenseLink, getLicenseAbbr } from '@/static/js/license-util'
+
+import { PlotVuer } from '@abi-software/plotvuer'
 
 import Scaffolds from '@/static/js/scaffolds.js'
 import Plots from '@/static/js/plots'
@@ -229,7 +238,8 @@ export default {
     DatasetAboutInfo,
     DatasetDescriptionInfo,
     DatasetFilesInfo,
-    ImagesGallery
+    ImagesGallery,
+    PlotVuer,
   },
 
   mixins: [Request, DateUtils, FormatStorage],
@@ -295,8 +305,11 @@ export default {
     // This data can be found via scicrunch. Currently is hardcoded while waiting for 
     // ImageGallery.vue to start making scicrunch calls
     let plotData = Plots[datasetId]
+    var plotUrl = undefined
     if (plotData) {
       plotData = [plotData]
+      plotUrl = `${process.env.portal_api}/s3-resource/${plotData[0].file_path}`
+      tabsData.push({ label: 'Plot View', type: 'plot' })
     }
 
     if (imagesData.status === 'success' || scaffoldData.length || plotData) {
@@ -304,6 +317,7 @@ export default {
     }
 
     return {
+      plotUrl: plotUrl,
       entries: organEntries.items,
       datasetInfo: datasetDetails,
       datasetType: route.query.type,
@@ -1014,4 +1028,13 @@ export default {
 .scaffold {
   height: 500px;
 }
+</style>
+<style lang="scss">
+  .plotvuer-container {
+    margin-top: 1.5rem;
+    height: 60vh;
+    max-width: calc(100% - 48px);
+    padding-left: 24px;
+    @import '~@abi-software/plotvuer/dist/plotvuer'
+  }
 </style>
