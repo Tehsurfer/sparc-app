@@ -261,6 +261,14 @@ const getDatasetDetails = async (datasetId, datasetType, $axios) => {
   }
 }
 
+const interlax = async (term, $axios) => {
+  let url = 'http://localhost:5000/interlax/'
+  let resp = await $axios.$get(url + term).catch(() => {
+    return {}
+  })
+  return resp
+}
+
 /**
  * Get images data, if available
  * and set the tabs accordingly
@@ -310,19 +318,18 @@ const getImagesData = async (datasetId, datasetDetails, $axios) => {
 
     let flatmapData = [{}]
     discover
-      .metaData(datasetId, version).then(response => {
-        response.data.keywords.forEach(key => {
-          for (let term in Uberons.species) {
-            if (term === key.toLowerCase()){
-              flatmapData[0].taxo = Uberons.species[term]
+      .metaData(datasetId, version).then( async(response) => {
+        await Promise.all(response.data.keywords.map(async (key) => {
+          const contents = await interlax(key, $axios)  
+          for (let i in contents){
+            if (contents[i].includes('NCBITaxon')){
+              flatmapData[0].taxo = contents[i]
+            } else if (contents[i].includes('Uberon')){
+              flatmapData[0].uberonid = contents[i]
             }
           }
-          for (let term in Uberons.anatomy) {
-            if (term === key.toLowerCase()) {
-              flatmapData[0].uberonid = Uberons.anatomy[term]
-            }
-          }
-        })
+          console.log(key, contents)
+        }))
       })
       .catch(error => {
         console.log(error.message)
