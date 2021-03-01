@@ -27,10 +27,10 @@
     minisearch "^2.2.1"
     n3 "^1.3.5"
 
-"@abi-software/flatmapvuer@^0.1.31-alpha-4":
-  version "0.1.31-alpha-4"
-  resolved "https://registry.yarnpkg.com/@abi-software/flatmapvuer/-/flatmapvuer-0.1.31-alpha-4.tgz#74b5458e15dbdf01af0a5786002bb7ba32ab239a"
-  integrity sha512-2rZjI8jZgMTmSBlsFkj+ym9CCRPaMmhWRoAixXP+Wv42hyGNYx21ZsODcKUq3ilL5dx21j50A4fofIMyws9aZQ==
+"@abi-software/flatmapvuer@^0.1.32-alpha-1":
+  version "0.1.32"
+  resolved "https://registry.yarnpkg.com/@abi-software/flatmapvuer/-/flatmapvuer-0.1.32.tgz#37671540be99a508ad7d52674506ed10ebd95a66"
+  integrity sha512-xb3PZZ2zSLSwAgavHHN8w9Ur07+6EamS16GqZuFiLwC1I82FNAZ5csVNDranoDtYqdNknkMxm2mwnNBQweTFAg==
   dependencies:
     "@abi-software/flatmap-viewer" "^1.0.2"
     "@abi-software/maptooltip" "^0.1.7-beta-2"
@@ -2627,12 +2627,12 @@
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
-"@tehsurfer/mapintegratedvuer@0.1.35-alpha-2":
-  version "0.1.35-alpha-2"
-  resolved "https://registry.yarnpkg.com/@tehsurfer/mapintegratedvuer/-/mapintegratedvuer-0.1.35-alpha-2.tgz#0ee508f2af5a2ccb40ce6390570d89ced5d79c0e"
-  integrity sha512-D5tMnzXI8fYxYO/K0e77M6s0wZqlUdizHJm7/JRs8eGJgcOUNWOA0E+5GUwM7IlRzMaAfTXi/DlOTfdT4Zb5qw==
+"@tehsurfer/mapintegratedvuer@0.1.36-alpha-1":
+  version "0.1.36-alpha-1"
+  resolved "https://registry.yarnpkg.com/@tehsurfer/mapintegratedvuer/-/mapintegratedvuer-0.1.36-alpha-1.tgz#b85a85e6af5ed960f88ec0f7a274dafcf9a5b7ad"
+  integrity sha512-+pcHorg3XyHf2OUnZnBxq107yfdzmwNj+Pikf21iTe5KivYG2Ac4ACZFDJBM835Zb/vyNQxG+tUiFt/GkfFIHg==
   dependencies:
-    "@abi-software/flatmapvuer" "^0.1.31-alpha-4"
+    "@abi-software/flatmapvuer" "^0.1.32-alpha-1"
     "@abi-software/maptooltip" "^0.1.13"
     "@abi-software/plotvuer" "^0.2.41"
     "@abi-software/scaffoldvuer" "^0.1.45"
