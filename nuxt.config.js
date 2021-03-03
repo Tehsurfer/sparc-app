@@ -101,7 +101,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/bootstrap', '@/plugins/contentful'],
+  plugins: [
+    '@/plugins/bootstrap',
+    '@/plugins/contentful',
+    { src: '~/plugins/polyfills', mode: 'client' }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -140,7 +144,22 @@ export default {
    ** Build configuration
    */
   build: {
-    transpile: [/^element-ui/],
+    transpile: [/^element-ui/, '@tehsurfer/mapintegratedvuer', '@abi-software/scaffoldvuer'],
+
+    /*
+     ** You can extend webpack config here
+     */
+    extend(config, ctx) {
+      if (ctx.isDev) {
+        config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
+      }
+    }
+  },
+  /*
+   ** Dev configuration
+   */
+  dev: {
+    transpile: [/^element-ui/, '@tehsurfer/mapintegratedvuer', '@abi-software/scaffoldvuer'],
 
     /*
      ** You can extend webpack config here
