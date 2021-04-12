@@ -28,12 +28,12 @@
     n3 "^1.3.5"
 
 "@abi-software/flatmapvuer@^0.1.30":
-  version "0.1.30"
-  resolved "https://registry.yarnpkg.com/@abi-software/flatmapvuer/-/flatmapvuer-0.1.30.tgz#cd0236af2e2935774a7cab72e2772e689d82da2d"
-  integrity sha512-GWrAeZhumEn/0JmSL3rpuBlbMKpY41p3g5QsoNVm2FLIKM/527teQzVzL9RdbpfGYc6gGFBMxpHBgyTsPBCfuw==
+  version "0.1.32"
+  resolved "https://registry.yarnpkg.com/@abi-software/flatmapvuer/-/flatmapvuer-0.1.32.tgz#37671540be99a508ad7d52674506ed10ebd95a66"
+  integrity sha512-xb3PZZ2zSLSwAgavHHN8w9Ur07+6EamS16GqZuFiLwC1I82FNAZ5csVNDranoDtYqdNknkMxm2mwnNBQweTFAg==
   dependencies:
     "@abi-software/flatmap-viewer" "^1.0.2"
-    "@abi-software/maptooltip" "^0.1.13"
+    "@abi-software/maptooltip" "^0.1.7-beta-2"
     "@abi-software/svg-sprite" "^0.1.11"
     core-js "^3.3.2"
     css-element-queries "^1.2.2"
@@ -42,33 +42,6 @@
     file-loader "^5.0.2"
     lodash "^4.17.20"
     vue "^2.6.10"
-
-"@abi-software/mapintegratedvuer@^0.1.30":
-  version "0.1.30"
-  resolved "https://registry.yarnpkg.com/@abi-software/mapintegratedvuer/-/mapintegratedvuer-0.1.30.tgz#89c16735dd2944cf81f6ea3f2c8fd6c84459ebd8"
-  integrity sha512-jqk7cAl1VfilKT/xpaa1JSqTDB8Wdje6APu5B7dYIge6hVMzUFblxgfjpoIsKcL08TCnaMPlovmnZwXQbVg5Mg==
-  dependencies:
-    "@abi-software/flatmapvuer" "^0.1.30"
-    "@abi-software/maptooltip" "^0.1.13"
-    "@abi-software/plotvuer" "^0.2.41"
-    "@abi-software/scaffoldvuer" "^0.1.45"
-    "@abi-software/svg-sprite" "^0.1.11"
-    "@soda/get-current-script" "^1.0.2"
-    core-js "^3.3.2"
-    d3-time-format "^3.0.0"
-    element-ui "^2.13.0"
-    es6-promise "^4.2.8"
-    lodash "^4.17.20"
-    postcss-prefix-selector "^1.7.2"
-    shepherd.js "^7.1.5"
-    splitpanes "^2.2.1"
-    svg-inline-loader "^0.8.2"
-    vue "^2.6.10"
-    vue-cli-plugin-webpack-bundle-analyzer "^2.0.0"
-    vue-draggable-resizable "2.1.0"
-    vue-router "^3.4.9"
-    vuex "^3.5.1"
-    webpack-node-externals "^2.5.2"
 
 "@abi-software/maptooltip@^0.1.13":
   version "0.1.13"
@@ -82,7 +55,18 @@
     lodash "^4.17.20"
     vue "^2.6.10"
 
-"@abi-software/plotvuer@^0.2.42":
+"@abi-software/maptooltip@^0.1.7-beta-2":
+  version "0.1.7-beta-2"
+  resolved "https://registry.yarnpkg.com/@abi-software/maptooltip/-/maptooltip-0.1.7-beta-2.tgz#296306777aff82229f8f932099a1350aa539518d"
+  integrity sha512-wRLy6jgAFsAGgrL7WxZjpFxvjgplwrAeP59Dzvn4IWneK8zvwaOivrVd53sS/WgaEbgGLgx0moZSEH4v9MqL+Q==
+  dependencies:
+    core-js "^3.3.2"
+    element-ui "^2.13.0"
+    file-loader "^5.0.2"
+    lodash "^4.17.19"
+    vue "^2.6.10"
+
+"@abi-software/plotvuer@^0.2.41", "@abi-software/plotvuer@^0.2.42":
   version "0.2.42"
   resolved "https://registry.yarnpkg.com/@abi-software/plotvuer/-/plotvuer-0.2.42.tgz#700f2ad1458722ebf919353df2e2584bc3e6979c"
   integrity sha512-qZATgX+G7/Y2vfL03RaihY5GFFrzqiyFrk2YepiXOeh8HUJXx7ZrUNPsDX7Q3PhjTxVhJwdWULNabU3+A3Lgtg==
@@ -97,8 +81,8 @@
     plotly.js "^1.55.2"
     vue "^2.6.10"
     vue-draggable-resizable "^2.2.0"
-    
-"@abi-software/scaffoldvuer@^0.1.45":
+
+"@abi-software/scaffoldvuer@^0.1.18", "@abi-software/scaffoldvuer@^0.1.45":
   version "0.1.45"
   resolved "https://registry.yarnpkg.com/@abi-software/scaffoldvuer/-/scaffoldvuer-0.1.45.tgz#7471f6e73c6712c5e04c59d0336326718c2f3e3b"
   integrity sha512-WshuB4hiCNj8OoQ+EXfGDhFAyueJFnCSvhs29JSWicW/d5VQPN3l0NBPhfJYJXdlNmyTGpNEGUkcAwvW6bPM/Q==
@@ -116,14 +100,15 @@
     vue-drag-resize "^1.3.2"
     zincjs "^0.36.4"
 
-"@abi-software/svg-sprite@^0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@abi-software/svg-sprite/-/svg-sprite-0.1.11.tgz#3526b6d03985548a28b45356fda0aeba95c93176"
-  integrity sha512-STUfkxm0C/bUM7zk/XCxp+zAfTryLT4faj8KD22Xe7RY6bm9ZtSjXKkKMQ8EekpyBHcybidEbfUBdPgXgJlPoQ==
+"@abi-software/simulationvuer@^0.2.18":
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/@abi-software/simulationvuer/-/simulationvuer-0.2.18.tgz#4f18f33de9e0d4aeb9dbaba77000951040af08b7"
+  integrity sha512-UXplj5JDlasV5E/wPekwOXmNYIG1pxNnch1WzPvl8AjcAwRROuYpkGpJzCsrgeas0R/7j69mH00wp3nsarXWeA==
   dependencies:
-    core-js "^3.6.5"
-    svg-inline-loader "^0.8.2"
+    "@abi-software/plotvuer" "^0.2.41"
+    element-ui "^2.14.1"
     vue "^2.6.11"
+    vue-loading-overlay "^3.4.2"
 
 "@abi-software/svg-sprite@^0.1.11":
   version "0.1.12"
@@ -2651,6 +2636,34 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
+
+"@tehsurfer/mapintegratedvuer@^0.1.62":
+  version "0.1.62"
+  resolved "https://registry.yarnpkg.com/@tehsurfer/mapintegratedvuer/-/mapintegratedvuer-0.1.62.tgz#51dceca3ed765721da19124f49b3bec9ad41d0df"
+  integrity sha512-NamJVqvAjUAwaofQT8sYe1xw58Q+KLO+AL/eZeu9lD6wV/X/8wcOYM7Q5yFh2dEr+38Uf4wZ8E4iCUl3azf9vg==
+  dependencies:
+    "@abi-software/flatmapvuer" "^0.1.30"
+    "@abi-software/maptooltip" "^0.1.13"
+    "@abi-software/plotvuer" "^0.2.41"
+    "@abi-software/scaffoldvuer" "^0.1.18"
+    "@abi-software/simulationvuer" "^0.2.18"
+    "@abi-software/svg-sprite" "^0.1.11"
+    "@soda/get-current-script" "^1.0.2"
+    core-js "^3.3.2"
+    d3-time-format "^3.0.0"
+    element-ui "^2.13.0"
+    es6-promise "^4.2.8"
+    lodash "^4.17.20"
+    postcss-prefix-selector "^1.7.2"
+    shepherd.js "^7.1.5"
+    splitpanes "^2.2.1"
+    svg-inline-loader "^0.8.2"
+    vue "^2.6.10"
+    vue-cli-plugin-webpack-bundle-analyzer "^2.0.0"
+    vue-draggable-resizable "2.1.0"
+    vue-router "^3.4.9"
+    vuex "^3.5.1"
+    webpack-node-externals "^2.5.2"
 
 "@turf/area@^6.0.1":
   version "6.0.1"
@@ -6212,6 +6225,18 @@ element-ui@^2.13.0, element-ui@^2.4.11:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/element-ui/-/element-ui-2.13.2.tgz#582bf47aaaaaafe23ea1958fae217a687ad06447"
   integrity sha512-r761DRPssMPKDiJZWFlG+4e4vr0cRG/atKr3Eqr8Xi0tQMNbtmYU1QXvFnKiFPFFGkgJ6zS6ASkG+sellcoHlQ==
+  dependencies:
+    async-validator "~1.8.1"
+    babel-helper-vue-jsx-merge-props "^2.0.0"
+    deepmerge "^1.2.0"
+    normalize-wheel "^1.0.1"
+    resize-observer-polyfill "^1.5.0"
+    throttle-debounce "^1.0.1"
+
+element-ui@^2.14.1:
+  version "2.15.1"
+  resolved "https://registry.yarnpkg.com/element-ui/-/element-ui-2.15.1.tgz#ada00aa6e32c02774a2e77563dd84668f813cdff"
+  integrity sha512-TqlScAKGH97XndSScUDeEHIzL1x7yg7DvQdKPEOUdiDcyIz3y3FJJBlpHYaJT96FOn1xpIcUZb+I2FJeU9EcrQ==
   dependencies:
     async-validator "~1.8.1"
     babel-helper-vue-jsx-merge-props "^2.0.0"
@@ -15339,6 +15364,11 @@ vue-loader@^15.9.3:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-loading-overlay@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/vue-loading-overlay/-/vue-loading-overlay-3.4.2.tgz#34792a83218df1d35dff50121ce9fac2114f1c38"
+  integrity sha512-xcB+NPjl76eA0uggm707x3ZFgrNosZXpynHipyS3K+rrK1NztOV49R1LY+/4ij5W1KYANp7eRI2EIHrxCpmWAw==
 
 vue-meta@^2.3.2, vue-meta@^2.4.0:
   version "2.4.0"
