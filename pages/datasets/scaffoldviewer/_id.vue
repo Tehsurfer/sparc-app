@@ -37,7 +37,7 @@
 
           <div class="scaffoldvuer-container">
             <ScaffoldVuer  :displayMarkers="displayMarkers" :url="scaffoldUrl" :traditional="traditional" :backgroundToggle="backgroundToggle"/>
-            <SideBar class="sidebar" :visible="true" :tabs="contextCard" :activeId="0" :api-location="'http://localhost:8000/'"/> 
+            <SideBar class="sidebar" :visible="true" :tabs="contextCard" :activeId="0" :api-location="'https://api.sparc.science/'"/> 
           </div>
         
         </client-only>
