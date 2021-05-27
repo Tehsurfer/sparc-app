@@ -6,13 +6,27 @@
       :description="datasetDescription"
       :breadcrumb="breadcrumb"
     >
-      <div slot="banner image">
+      <div slot="banner image" class="img-dataset">
         <dataset-banner-image :src="getDatasetImage" />
+        <sparc-pill v-if="datasetInfo.embargo">
+          Embargoed
+        </sparc-pill>
       </div>
       <div slot="meta content" class="details-header__container--content-links">
         <div class="dataset-meta">
           <div class="dataset-updated-date">
             Last updated on {{ lastUpdatedDate }}
+            <template v-if="datasetType !== 'simulation'">
+              (
+              <a
+                href="#"
+                class="version-link"
+                @click.prevent="isVersionModalVisible = true"
+              >
+                {{ versionRevisionText }}
+              </a>
+              )
+            </template>
           </div>
         </div>
         <div class="dataset-owners">
@@ -38,84 +52,110 @@
             </template>
           </div>
         </div>
-        <div class="header-stats-section">
-          <div class="header-stats-block">
-            <svg-icon class="mr-8" name="icon-files" height="20" width="20" />
-            <div>
-              <template v-if="datasetFiles > 0">
-                <strong>
-                  {{ datasetFiles }}
-                </strong>
-                Files
-              </template>
+        <p v-if="datasetInfo.embargo" class="embargo-release-date">
+          Release date: {{ formatDate(datasetInfo.embargoReleaseDate) }}
+        </p>
 
-              <template v-else>
-                No Files
-              </template>
-            </div>
-          </div>
-          <div v-if="datasetType !== 'simulation'" class="header-stats-block">
-            <svg-icon class="mr-8" name="icon-storage" height="20" width="20" />
-            <div>
-              <strong>{{ datasetStorage.number }}</strong>
-              {{ datasetStorage.unit }}
-            </div>
-          </div>
-          <div class="header-stats-block">
-            <svg-icon class="mr-8" name="icon-license" height="20" width="20" />
-            <div>
-              <template v-if="datasetLicense">
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  :content="datasetLicenseName"
-                  placement="top"
-                  :visible-arrow="false"
-                >
-                  <a :href="licenseLink" target="_blank">
-                    {{ datasetLicense }}
-                  </a>
-                </el-tooltip>
-              </template>
+        <template v-if="datasetInfo.embargo === false">
+          <div class="header-stats-section">
+            <div class="header-stats-block">
+              <svg-icon class="mr-8" name="icon-files" height="20" width="20" />
+              <div>
+                <template v-if="datasetFiles > 0">
+                  <strong>
+                    {{ datasetFiles }}
+                  </strong>
+                  Files
+                </template>
 
-              <template v-else>
-                No License Selected
-              </template>
+                <template v-else>
+                  No Files
+                </template>
+              </div>
+            </div>
+            <div v-if="datasetType !== 'simulation'" class="header-stats-block">
+              <svg-icon
+                class="mr-8"
+                name="icon-storage"
+                height="20"
+                width="20"
+              />
+              <div>
+                <strong>{{ datasetStorage.number }}</strong>
+                {{ datasetStorage.unit }}
+              </div>
+            </div>
+            <div class="header-stats-block">
+              <svg-icon
+                class="mr-8"
+                name="icon-license"
+                height="20"
+                width="20"
+              />
+              <div>
+                <template v-if="datasetLicense">
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    :content="datasetLicenseName"
+                    placement="top"
+                    :visible-arrow="false"
+                  >
+                    <a :href="licenseLink" target="_blank">
+                      {{ datasetLicense }}
+                    </a>
+                  </el-tooltip>
+                </template>
+
+                <template v-else>
+                  No License Selected
+                </template>
+              </div>
             </div>
           </div>
-        </div>
-        <div v-if="datasetType === 'simulation'">
-          <button class="dataset-button">
+          <div v-if="datasetType === 'simulation'">
             <a
               :href="`https://osparc.io/study/${getSimulationId}`"
               target="_blank"
+              class="dataset-button-link"
             >
-              Run Simulation
+              <el-button class="dataset-button">
+                Run Simulation
+              </el-button>
             </a>
-          </button>
-        </div>
-        <div v-else>
-          <button class="dataset-button" @click="isDownloadModalVisible = true">
-            Get Dataset
-          </button>
-          <el-button class="citation-button" @click="scrollToCitations">
-            Cite Dataset
-          </el-button>
-          <nuxt-link
-            :to="{
-              name: 'help-helpId',
-              params: {
-                helpId: ctfDatasetFormatInfoPageId
-              }
-            }"
-            class="dataset-link"
-          >
-            SPARC Dataset Structure
-          </nuxt-link>
-        </div>
+          </div>
+          <div v-else>
+            <el-button
+              class="dataset-button"
+              @click="isDownloadModalVisible = true"
+            >
+              Get Dataset
+            </el-button>
+            <el-button class="citation-button" @click="scrollToCitations">
+              Cite Dataset
+            </el-button>
+            <nuxt-link
+              :to="{
+                name: 'help-helpId',
+                params: {
+                  helpId: ctfDatasetFormatInfoPageId
+                }
+              }"
+              class="dataset-link"
+            >
+              SPARC Dataset Structure
+            </nuxt-link>
+          </div>
+        </template>
       </div>
     </details-header>
-    <div class="container">
+    <div v-if="datasetInfo.embargo === false" class="container">
+      <citation-details
+        :doi-value="datasetInfo.doi"
+        :published-date="originallyPublishedDate"
+      />
+    </div>
+    <div v-if="datasetInfo.embargo === false" class="container">
       <detail-tabs
         :tabs="tabs"
         :active-tab="activeTab"
@@ -131,7 +171,6 @@
           v-show="activeTab === 'about'"
           :updated-date="lastUpdatedDate"
           :doi="datasetDOI"
-          :doi-value="datasetInfo.doi"
           :dataset-tags="datasetTags"
           :dataset-owner-name="datasetOwnerName"
           :dataset-owner-email="datasetOwnerEmail"
@@ -140,6 +179,7 @@
         <dataset-files-info
           v-show="activeTab === 'files'"
           :dataset-details="datasetInfo"
+          :osparc-viewers="osparcViewers"
         />
         <images-gallery
           v-show="activeTab === 'images'"
@@ -159,6 +199,19 @@
       :download-size="getDownloadSize"
       @close-download-dialog="isDownloadModalVisible = false"
     />
+    <version-history
+      :visible.sync="isVersionModalVisible"
+      :dataset-id="datasetInfo.id"
+      :latest-version="datasetInfo.latestVersion"
+      :versions="versions"
+      @close-version-dialog="closeVersionModal"
+    />
+
+    <dataset-version-message
+      v-if="!isLatestVersion"
+      :current-version="datasetInfo.version"
+      :dataset-details="datasetInfo"
+    />
   </div>
 </template>
 
@@ -176,6 +229,9 @@ import DatasetAboutInfo from '@/components/DatasetDetails/DatasetAboutInfo.vue'
 import DatasetDescriptionInfo from '@/components/DatasetDetails/DatasetDescriptionInfo.vue'
 import DatasetFilesInfo from '@/components/DatasetDetails/DatasetFilesInfo.vue'
 import ImagesGallery from '@/components/ImagesGallery/ImagesGallery.vue'
+import VersionHistory from '@/components/VersionHistory/VersionHistory.vue'
+import DatasetVersionMessage from '@/components/DatasetVersionMessage/DatasetVersionMessage.vue'
+import SparcPill from '@/components/SparcPill/SparcPill.vue'
 
 import Request from '@/mixins/request'
 import DateUtils from '@/mixins/format-date'
@@ -189,6 +245,7 @@ import Videos from '@/static/js/videos'
 import createClient from '@/plugins/contentful.js'
 
 import discover from '@/services/discover'
+import CitationDetails from '~/components/CitationDetails/CitationDetails.vue'
 
 const client = createClient()
 
@@ -229,12 +286,15 @@ const getOrganEntries = async () => {
 /**
  * Get Dataset details
  * @param {Number} datasetId
+ * @param {Number} version
  * @param {String} datasetType
  * @param {Function} $axios
  * @returns {Object}
  */
-const getDatasetDetails = async (datasetId, datasetType, $axios) => {
-  const datasetUrl = `${process.env.discover_api_host}/datasets/${datasetId}`
+const getDatasetDetails = async (datasetId, version, datasetType, $axios) => {
+  const url = `${process.env.discover_api_host}/datasets/${datasetId}`
+  const datasetUrl = version ? `${url}/versions/${version}` : url
+
   const simulationUrl = `${process.env.portal_api}/sim/dataset/${datasetId}`
 
   try {
@@ -257,6 +317,23 @@ const getDatasetDetails = async (datasetId, datasetType, $axios) => {
     return datasetDetails
   } catch (error) {
     return {}
+  }
+}
+
+/**
+ * Get all the versions of the datasets
+ * @param {Number} datasetId
+ * @param {Object} $axios
+ * @returns {Array}
+ */
+const getDatasetVersions = (datasetId, $axios) => {
+  try {
+    const url = `${process.env.discover_api_host}/datasets/${datasetId}/versions`
+    return $axios.$get(url).then(response => {
+      return response.sort((a, b) => a.verson - b.version)
+    })
+  } catch (error) {
+    return []
   }
 }
 
@@ -347,13 +424,17 @@ export default {
   components: {
     DetailsHeader,
     DetailTabs,
+    CitationDetails,
     ContributorItem,
     DatasetBannerImage,
     DownloadDataset,
     DatasetAboutInfo,
     DatasetDescriptionInfo,
     DatasetFilesInfo,
-    ImagesGallery
+    ImagesGallery,
+    VersionHistory,
+    DatasetVersionMessage,
+    SparcPill
   },
 
   mixins: [Request, DateUtils, FormatStorage],
@@ -365,9 +446,12 @@ export default {
 
     const datasetDetails = await getDatasetDetails(
       datasetId,
+      route.params.version,
       route.query.type,
       $axios
     )
+
+    const versions = await getDatasetVersions(datasetId, $axios)
 
     const {
       imagesData,
@@ -377,6 +461,14 @@ export default {
       videoData
     } = await getImagesData(datasetId, datasetDetails, $axios)
 
+    // Get oSPARC file viewers
+    const osparcViewers = await $axios
+      .$get(`${process.env.portal_api}/get_osparc_data`)
+      .then(osparcData => osparcData['file_viewers'])
+      .catch(() => {
+        return {}
+      })
+
     return {
       entries: organEntries,
       datasetInfo: datasetDetails,
@@ -385,7 +477,9 @@ export default {
       scaffoldData,
       plotData,
       videoData,
-      tabs: tabsData
+      tabs: tabsData,
+      osparcViewers,
+      versions
     }
   },
 
@@ -420,11 +514,25 @@ export default {
         }
       ],
       subtitles: [],
-      ctfDatasetFormatInfoPageId: process.env.ctf_dataset_format_info_page_id
+      ctfDatasetFormatInfoPageId: process.env.ctf_dataset_format_info_page_id,
+      isVersionModalVisible: false
     }
   },
 
   computed: {
+    /**
+     * Compute if the dataset is the latest version
+     * @returns {Boolean}
+     */
+    isLatestVersion() {
+      if (this.versions.length) {
+        const latestVersion = compose(propOr(1, 'version'), head)(this.versions)
+        return this.datasetInfo.version === latestVersion
+      }
+
+      return true
+    },
+
     /**
      * Returns simulation id for run simulation button
      * @returns {String}
@@ -591,6 +699,7 @@ export default {
       const date = propOr('', 'createdAt', this.datasetInfo)
       return this.formatDate(date)
     },
+
     /**
      * Get formatted last updated date
      * @return {String}
@@ -687,6 +796,18 @@ export default {
      */
     scaffold: function() {
       return Scaffolds[this.organType.toLowerCase()]
+    },
+
+    /**
+     * computes the right text based on the version and revision
+     * @returns {String}
+     */
+    versionRevisionText() {
+      const versionText = `Version ${this.datasetInfo.version}`
+      const revisionText = this.datasetInfo.revision
+        ? `, Revision ${this.datasetInfo.revision}`
+        : ''
+      return versionText + revisionText
     }
   },
 
@@ -819,6 +940,13 @@ export default {
       } else {
         this.getCitationsArea().scrollIntoView()
       }
+    },
+
+    /**
+     * Closes the version history modal
+     */
+    closeVersionModal: function() {
+      this.isVersionModalVisible = false
     }
   },
 
@@ -916,7 +1044,7 @@ export default {
         },
         {
           name: 'DC.publisher',
-          content: 'Blackfynn Discover'
+          content: 'Pennsieve Discover'
         },
         {
           name: 'DC.date',
@@ -960,7 +1088,7 @@ export default {
             '@context': 'http://schema.org',
             '@type': 'WebSite',
             url: process.env.siteUrl,
-            name: 'Blackfynn Discover'
+            name: 'Pennsieve Discover'
           },
           type: 'application/ld+json'
         }
@@ -1003,6 +1131,12 @@ export default {
         color: #ffffff;
         font-weight: 500;
         text-transform: uppercase;
+        a {
+          color: #fff;
+        }
+      }
+      .dataset-button-link {
+        margin: 0;
       }
       .citation-button {
         margin-left: 0.5rem;
@@ -1027,6 +1161,13 @@ export default {
   }
 }
 
+.details-header__container--content-links .version-link {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1rem;
+  margin: 0 !important;
+}
 .dataset-updated-date {
   line-height: 24px;
   color: black;
@@ -1090,5 +1231,23 @@ export default {
 }
 .scaffold {
   height: 500px;
+}
+
+.img-dataset {
+  display: block;
+  position: relative;
+  .sparc-pill {
+    font-size: 0.75rem;
+    position: absolute;
+    right: 0.25rem;
+    top: 0.5rem;
+  }
+  img {
+    display: block;
+  }
+}
+.embargo-release-date {
+  font-size: 0.875rem;
+  margin: 1.5rem 0 0;
 }
 </style>

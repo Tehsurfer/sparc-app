@@ -1,5 +1,4 @@
 export default {
-  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -29,15 +28,17 @@ export default {
   },
   env: {
     portal_api: process.env.PORTAL_API_HOST || 'http://localhost:8000',
-    flatmap_api: process.env.FLATMAP_API_HOST || 'https://mapcore-demo.org/flatmaps/',
+    flatmap_api:
+      process.env.FLATMAP_API_HOST || 'https://mapcore-demo.org/flatmaps/',
     crosscite_api_host:
       process.env.CROSSCITE_API_HOST || 'https://citation.crosscite.org',
     discover_api_host:
       process.env.BLACKFYNN_DISCOVER_API_HOST ||
-      'https://api.blackfynn.io/discover',
-    bf_api_host: process.env.BF_API_HOST || 'https://api.blackfynn.io',
+      'https://api.pennsieve.io/discover',
+    bf_api_host: process.env.BF_API_HOST || 'https://api.pennsieve.io',
     zipit_api_host:
-      process.env.ZIPIT_API_HOST || 'https://api.blackfynn.io/zipit/discover',
+      process.env.ZIPIT_API_HOST || 'https://api.pennsieve.io/zipit/discover',
+    osparc_host: process.env.OSPARC_HOST || 'https://osparc.io',
     ctf_event_id: 'event',
     ctf_news_id: 'news',
     ctf_resource_id: 'sparcPartners',
@@ -46,6 +47,7 @@ export default {
     ctf_help_list_id: 'helpSection',
     ctf_help_aws_id: 'zQfzadwADutviJjT19hA5',
     ctf_about_page_id: '4VOSvJtgtFv1PS2lklMcnS',
+    ctf_contact_us_page_id: '7t2GZ5F74AdNRqBau4mp8S',
     ctf_support_page_id: '59F0dM5goobqjw3TsqINRw',
     ctf_home_page_id: '4qJ9WUWXg09FAUvCnbGxBY',
     ctf_news_and_events_page_id: '4IoMamTLRlN3OpxT1zgnU',
@@ -91,6 +93,11 @@ export default {
       routes.push({
         path: '/submit_data.html',
         redirect: '/help/7k8nEPuw3FjOq2HuS8OVsd'
+      })
+      routes.push({
+        name: 'version',
+        path: '/datasets/:datasetId/version/:version',
+        component: '@/pages/datasets/_datasetId.vue'
       })
     }
   },

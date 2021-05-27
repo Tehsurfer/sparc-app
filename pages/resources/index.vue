@@ -100,8 +100,12 @@ const tabTypes = [
     type: 'Device' as const
   },
   {
-    label: 'Digital Repositories',
-    type: 'Digital Repositories' as const
+    label: 'Databases',
+    type: 'Databases' as const
+  },
+  {
+    label: 'Information Services',
+    type: 'Information Services' as const
   },
   {
     label: 'Software',
@@ -162,11 +166,7 @@ export default Vue.extend<Data, Methods, Computed, never>({
      * @returns {Number}
      */
     currentResourceCount: function() {
-      return this.resourceData.limit > this.resourceData.total
-        ? this.resourceData.total
-        : this.resourceData.skip !== 0
-        ? this.resourceData.total - this.resourceData.limit
-        : this.resourceData.limit
+      return this.resourceData.total
     },
 
     /**
@@ -270,6 +270,7 @@ export default Vue.extend<Data, Methods, Computed, never>({
      */
     setActiveTab: function(tab) {
       this.activeTab = tab
+      this.resourceData.skip = 0
       this.$router.push({
         name: 'resources',
         query: {
