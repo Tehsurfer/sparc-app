@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { FlatmapVuer } from '@abi-software/flatmapvuer'
+import { FlatmapVuer } from '@tehsurfer/flatmapvuer'
 
 import DetailTabs from '@/components/DetailTabs/DetailTabs.vue'
 
@@ -96,6 +96,7 @@ export default {
      * @returns String
      */
     taxo: function() {
+      console.log('taxo', this.$route.query.taxo)
       return this.$route.query.taxo
     },
 
@@ -104,6 +105,7 @@ export default {
      * @returns Number
      */
     uberonid: function() {
+      console.log('taxo', this.$route.query.uberonid)
       return this.$route.query.uberonid
     },
 
@@ -180,6 +182,6 @@ h1 {
     height: 90vh;
     max-width: calc(100% - 48px);
     padding-left: 24px;
-    @import '~@abi-software/flatmapvuer/dist/flatmapvuer'
+    @import '~@tehsurfer/flatmapvuer/dist/flatmapvuer'
   }
 </style>

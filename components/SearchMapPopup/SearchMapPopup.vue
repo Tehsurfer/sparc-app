@@ -52,8 +52,8 @@
   import Vue from 'vue'
   import BfDialogHeader from '@/components/bf-dialog-header/BfDialogHeader.vue'
   import DialogBody from '@/components/dialog-body/DialogBody.vue'
-  import '@abi-software/flatmapvuer'
-  import '@abi-software/flatmapvuer/dist/flatmapvuer.css'
+  import '@tehsurfer/flatmapvuer'
+  import '@tehsurfer/flatmapvuer/dist/flatmapvuer.css'
   import BfButton from "~/components/shared/BfButton/BfButton.vue";
 
   interface Props {

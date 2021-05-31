@@ -388,6 +388,7 @@ const getImagesData = async (datasetId, datasetDetails, $axios) => {
     let flatmapData = [{}]
     discover
       .metaData(datasetId, version).then(response => {
+        console.log('keywords:', response.data.keywords)
         response.data.keywords.forEach(key => {
           for (let term in Uberons.species) {
             if (term === key.toLowerCase()){
@@ -398,6 +399,14 @@ const getImagesData = async (datasetId, datasetDetails, $axios) => {
             if (term === key.toLowerCase()) {
               flatmapData[0].uberonid = Uberons.anatomy[term]
             }
+          }
+          if (Number(datasetId) === 64) {
+            flatmapData[0].taxo = Uberons.species['rat']
+            flatmapData[0].uberonid = 'https://sparc.science/datasets/64?type=dataset'
+          }
+          if (Number(datasetId) === 106) {
+            flatmapData[0].taxo = Uberons.species['rat']
+            flatmapData[0].uberonid = 'https://apinatomy.org/uris/models/keast-bladder'
           }
         })
       })
@@ -421,6 +430,8 @@ const getImagesData = async (datasetId, datasetDetails, $axios) => {
     ) {
       tabsData.push({ label: 'Gallery', type: 'images' })
     }
+
+    console.log('fd', flatmapData)
 
     return {
       imagesData,
