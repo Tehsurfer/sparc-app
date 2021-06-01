@@ -43,7 +43,7 @@
     minisearch "^2.2.1"
     n3 "^1.3.5"
 
-"@abi-software/flatmapvuer@^0.1.32-alpha-1":
+"@abi-software/flatmapvuer@^0.1.30", "@abi-software/flatmapvuer@^0.1.32-alpha-1":
   version "0.1.32"
   resolved "https://registry.yarnpkg.com/@abi-software/flatmapvuer/-/flatmapvuer-0.1.32.tgz#37671540be99a508ad7d52674506ed10ebd95a66"
   integrity sha512-xb3PZZ2zSLSwAgavHHN8w9Ur07+6EamS16GqZuFiLwC1I82FNAZ5csVNDranoDtYqdNknkMxm2mwnNBQweTFAg==
@@ -106,6 +106,17 @@
     element-ui "^2.13.0"
     file-loader "^5.0.2"
     lodash "^4.17.20"
+    vue "^2.6.10"
+
+"@abi-software/maptooltip@^0.1.7-beta-2":
+  version "0.1.7-beta-2"
+  resolved "https://registry.yarnpkg.com/@abi-software/maptooltip/-/maptooltip-0.1.7-beta-2.tgz#296306777aff82229f8f932099a1350aa539518d"
+  integrity sha512-wRLy6jgAFsAGgrL7WxZjpFxvjgplwrAeP59Dzvn4IWneK8zvwaOivrVd53sS/WgaEbgGLgx0moZSEH4v9MqL+Q==
+  dependencies:
+    core-js "^3.3.2"
+    element-ui "^2.13.0"
+    file-loader "^5.0.2"
+    lodash "^4.17.19"
     vue "^2.6.10"
 
 "@abi-software/plotvuer@^0.2.41", "@abi-software/plotvuer@^0.2.42":
@@ -2712,6 +2723,33 @@
     file-loader "^5.0.2"
     lodash "^4.17.21"
     vue "^2.6.10"
+
+"@tehsurfer/mapintegratedvuer@0.1.36-alpha-1":
+  version "0.1.36-alpha-1"
+  resolved "https://registry.yarnpkg.com/@tehsurfer/mapintegratedvuer/-/mapintegratedvuer-0.1.36-alpha-1.tgz#b85a85e6af5ed960f88ec0f7a274dafcf9a5b7ad"
+  integrity sha512-+pcHorg3XyHf2OUnZnBxq107yfdzmwNj+Pikf21iTe5KivYG2Ac4ACZFDJBM835Zb/vyNQxG+tUiFt/GkfFIHg==
+  dependencies:
+    "@abi-software/flatmapvuer" "^0.1.32-alpha-1"
+    "@abi-software/maptooltip" "^0.1.13"
+    "@abi-software/plotvuer" "^0.2.41"
+    "@abi-software/scaffoldvuer" "^0.1.45"
+    "@abi-software/svg-sprite" "^0.1.11"
+    "@soda/get-current-script" "^1.0.2"
+    core-js "^3.3.2"
+    d3-time-format "^3.0.0"
+    element-ui "^2.13.0"
+    es6-promise "^4.2.8"
+    lodash "^4.17.20"
+    postcss-prefix-selector "^1.7.2"
+    shepherd.js "^7.1.5"
+    splitpanes "^2.2.1"
+    svg-inline-loader "^0.8.2"
+    vue "^2.6.10"
+    vue-cli-plugin-webpack-bundle-analyzer "^2.0.0"
+    vue-draggable-resizable "2.1.0"
+    vue-router "^3.4.9"
+    vuex "^3.5.1"
+    webpack-node-externals "^2.5.2"
 
 "@turf/area@^6.0.1":
   version "6.0.1"

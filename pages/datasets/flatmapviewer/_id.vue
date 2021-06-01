@@ -58,8 +58,6 @@
 </template>
 
 <script>
-import { FlatmapVuer } from '@tehsurfer/flatmapvuer'
-
 import DetailTabs from '@/components/DetailTabs/DetailTabs.vue'
 
 export default {
@@ -67,7 +65,9 @@ export default {
 
   components: {
     DetailTabs,
-    FlatmapVuer
+    FlatmapVuer: process.client
+      ? () => import('@tehsurfer/flatmapvuer').then(m => m.FlatmapVuer)
+      : null
   },
 
   methods: {
