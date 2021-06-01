@@ -134,7 +134,7 @@ export default {
       defaultScaffoldImg: require('~/assets/scaffold-light.png'),
       defaultPlotImg: require('~/assets/data-icon.png'),
       defaultVideoImg: require('~/assets/video-default.png'),
-      defaultFlatmapImg: require('~/assets/flatmap-thumbnail.png')
+      defaultFlatmapImg: 'https://raw.githubusercontent.com/Tehsurfer/sparc-app/pathway-provenance-prototype/assets/flatmap-thumbnail.png'
     }
   },
   computed: {
@@ -322,12 +322,12 @@ export default {
             console.log(error.message)
           })
       })
-      if (this.datasetFlatmaps.length > 0) {
+      for (let i in this.datasetFlatmaps) {
         this.thumbnails.push({
           img: this.defaultFlatmapImg,
           id: this.datasetId,
-          taxo: this.datasetFlatmaps[0].taxo,
-          uberonid: this.datasetFlatmaps[0].uberonid,
+          taxo: this.datasetFlatmaps[i].taxo,
+          uberonid: this.datasetFlatmaps[i].uberonid,
         })
       }
       for (let i in this.datasetPlots) {

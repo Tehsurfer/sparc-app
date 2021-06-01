@@ -386,33 +386,37 @@ const getImagesData = async (datasetId, datasetDetails, $axios) => {
     }
 
     let flatmapData = [{}]
-    discover
-      .metaData(datasetId, version).then(response => {
-        console.log('keywords:', response.data.keywords)
-        response.data.keywords.forEach(key => {
-          for (let term in Uberons.species) {
-            if (term === key.toLowerCase()){
-              flatmapData[0].taxo = Uberons.species[term]
-            }
-          }
-          for (let term in Uberons.anatomy) {
-            if (term === key.toLowerCase()) {
-              flatmapData[0].uberonid = Uberons.anatomy[term]
-            }
-          }
-          if (Number(datasetId) === 64) {
-            flatmapData[0].taxo = Uberons.species['rat']
-            flatmapData[0].uberonid = 'https://sparc.science/datasets/64?type=dataset'
-          }
-          if (Number(datasetId) === 106) {
-            flatmapData[0].taxo = Uberons.species['rat']
-            flatmapData[0].uberonid = 'https://apinatomy.org/uris/models/keast-bladder'
-          }
-        })
+    const doi = propOr(1, 'doi', datasetDetails)
+    console.log('DOI:', doi)
+    let sciData = await $axios
+      .$get(`${process.env.portal_api}/scicrunch-dataset/DOI%3A${doi}`)
+      .catch(() => {
+        return {}
       })
-      .catch(error => {
-        console.log(error.message)
-      })
+    console.log(sciData)
+    if (sciData.hits.hits.length !== 0) {
+      if (
+        sciData.hits.hits[0]._source.anatomy &&
+        sciData.hits.hits[0]._source.anatomy.organ
+      ) {
+        for (let i in sciData.hits.hits[0]._source.anatomy.organ) {
+          if (flatmapData.length <= i){
+            flatmapData.push({})
+          }
+          console.log('about to add data!')
+          flatmapData[i].taxo = Uberons.species['rat']
+          flatmapData[i].uberonid = sciData.hits.hits[0]._source.anatomy.organ[i].curie
+          if (flatmapData[i].uberonid === 'neuron-type-keast-10') { // hack since flatmap doesn not have 10
+            flatmapData[i].uberonid = 'ilxtr:neuron-type-keast-9'
+          }
+        }
+      }
+    }
+    if (Number(datasetId) === 64) {
+      flatmapData[0].taxo = Uberons.species['rat']
+      flatmapData[0].uberonid = 'https://sparc.science/datasets/64?type=dataset'
+    }
+    console.log('fd::', flatmapData)
 
     // This data can be found via scicrunch. Currently is hardcoded while waiting for
     // ImageGallery.vue to start making scicrunch calls
@@ -720,6 +724,15 @@ export default {
      */
     getSearchRecordsUrl: function() {
       return `${this.discover_host}/search/records?datasetId=${this.datasetId}&model=protocol`
+    },
+
+    /**
+     * Return dataset DOI 
+     * @returns {String}
+     */
+    plainDOI: function() {
+      const doi = propOr('', 'doi', this.datasetInfo)
+      return doi
     },
 
     /**
